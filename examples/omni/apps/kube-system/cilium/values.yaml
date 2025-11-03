@@ -1,7 +1,33 @@
+# apps/kube-system/cilium/values.yaml
 cilium:
   kubeProxyReplacement: true
+  l7Proxy: true
+  ingressController:
+    enabled: true
+
+  # === IPAM: KUBERNETES MODE (DEFAULT) ===
   ipam:
     mode: kubernetes
+
+  # === GATEWAY API ===
+  gatewayAPI:
+    enabled: true
+
+  # === L2 LOAD BALANCING ===
+  loadBalancer:
+    mode: dsr
+    algorithm: maglev
+    acceleration: native
+    l2:
+      enabled: true
+
+  # === EXTERNAL IP SUPPORT ===
+  externalIPs:
+    enabled: true
+  nodeLocalExternalIP:
+    enabled: true
+
+  # === SECURITY CONTEXT ===
   securityContext:
     capabilities:
       ciliumAgent:
@@ -16,21 +42,8 @@ cilium:
         - FOWNER
         - SETUID
         - SETGID
-      cleanCiliumState:
-        - NET_ADMIN
-        - SYS_ADMIN
-        - SYS_RESOURCE
-  cgroup:
-    hostRoot: /sys/fs/cgroup
-    autoMount:
-      enabled: false
-  # Enable Cilium Ingress Controller
-  ingressController:
-    enabled: true
-  # Use KubePrism to access cluster API
-  k8sServiceHost: localhost
-  k8sServicePort: 7445
-  # Enable Hubble
+
+  # === HUBBLE ===
   hubble:
     relay:
       enabled: true
@@ -38,6 +51,9 @@ cilium:
       enabled: true
       service:
         annotations:
-          # Enable Omni Workload Proxying for this service
           omni-kube-service-exposer.sidero.dev/port: "50080"
           omni-kube-service-exposer.sidero.dev/label: Hubble
+
+  # === NATIVE ROUTING ===
+  routingMode: native
+  autoDirectNodeRoutes: true

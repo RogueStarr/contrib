@@ -1,14 +1,16 @@
 kind: Cluster
 name: omni-contrib
 talos:
-  version: v1.6.1
+  version: v1.11.1
 kubernetes:
-  version: 1.28.6
+  version: 1.30.0
 features:
   enableWorkloadProxy: true
 patches:
   - name: cni
     file: patches/cni.yaml
+  - name: gateway-api-crds
+    file: patches/gateway-api-crds.yaml
 ---
 kind: ControlPlane
 machineClass:
