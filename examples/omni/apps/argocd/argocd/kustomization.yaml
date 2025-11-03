@@ -6,6 +6,7 @@ resources:
   - namespace.yaml
   - github.com/argoproj/argo-cd/manifests/cluster-install?ref=v3.1.9
   - bootstrap-app-set.yaml
+  - git-pat-secret.yaml
 
 patches:
   - path: config.yaml
