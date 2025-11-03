@@ -24840,6 +24840,18 @@ cluster:
         type: Opaque
         ---
         apiVersion: v1
+        kind: Secret
+        metadata:
+          labels:
+            argocd.argoproj.io/secret-type: repository
+          name: github-pat-repo
+          namespace: argocd
+        stringData:
+          password: uAxFqdnzVaW7BZr1VIg8Z3PFVhXAnyhFzmmo_BOa
+          url: https://github.com/RogueStarr/contrib.git
+          username: Roguito
+        ---
+        apiVersion: v1
         kind: Service
         metadata:
           labels:
